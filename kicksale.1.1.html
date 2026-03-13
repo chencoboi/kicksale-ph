@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KickSale.ph — Biggest Sneaker Discounts in the Philippines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --green-dark: #14532d;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-400: #9ca3af;
+    --gray-600: #4b5563;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --white: #ffffff;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-900);
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: var(--gray-900);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .logo span { color: var(--green); }
+
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gray-600);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-links a.active { color: var(--green); }
+
+  .nav-search {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    max-width: 380px;
+    margin: 0 32px;
+  }
+  .nav-search input {
+    flex: 1;
+    padding: 8px 14px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    outline: none;
+    background: var(--gray-50);
+  }
+  .nav-search input:focus { border-color: var(--green); background: var(--white); }
+  .nav-search button {
+    padding: 8px 16px;
+    background: var(--green);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--gray-900);
+    padding: 72px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(22,163,74,0.04) 40px,
+      rgba(22,163,74,0.04) 80px
+    );
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--green);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 7vw, 72px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 0.95;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero h1 span { color: var(--green); }
+  .hero p {
+    font-size: 17px;
+    color: var(--gray-400);
+    margin-bottom: 36px;
+    position: relative;
+  }
+
+  .hero-search {
+    display: flex;
+    gap: 10px;
+    max-width: 560px;
+    margin: 0 auto 28px;
+    position: relative;
+  }
+  .hero-search input {
+    flex: 1;
+    padding: 16px 20px;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    outline: none;
+  }
+  .hero-search button {
+    padding: 16px 28px;
+    background: var(--green);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .hero-search button:hover { background: #15803d; }
+
+  .brand-pills {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .brand-pill {
+    background: rgba(255,255,255,0.08);
+    color: var(--gray-400);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 99px;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.15s;
+  }
+  .brand-pill:hover { background: rgba(255,255,255,0.15); color: var(--white); }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 14px 24px;
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--gray-600);
+  }
+  .stat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .stat strong { color: var(--gray-900); font-weight: 700; }
+
+  /* ── SECTION ── */
+  .section { padding: 40px 24px; max-width: 1200px; margin: 0 auto; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+  .section-subtitle { font-size: 13px; color: var(--gray-400); }
+  .see-all {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  /* ── PRODUCT GRID ── */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px;
+  }
+
+  .product-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+
+  .card-img {
+    aspect-ratio: 1;
+    background: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-img img { width: 90%; height: 90%; object-fit: contain; }
+  .card-img .placeholder { font-size: 52px; }
+
+  .disc-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--red);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 99px;
+    letter-spacing: 0.02em;
+  }
+
+  .store-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.95);
+    color: var(--gray-600);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--gray-200);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .card-body { padding: 12px; }
+  .card-brand {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+  }
+  .card-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-900);
+    line-height: 1.3;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-prices {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .card-sale {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--gray-900);
+  }
+  .card-orig {
+    font-size: 12px;
+    color: var(--gray-400);
+    text-decoration: line-through;
+  }
+  .card-sizes {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 5px;
+  }
+
+  /* ── DEALS PAGE ── */
+  .deals-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+  .deals-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .deals-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+  }
+  .deals-updated {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .deals-filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .filter-chip {
+    padding: 7px 14px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid var(--gray-200);
+    background: var(--white);
+    color: var(--gray-600);
+    transition: all 0.15s;
+  }
+  .filter-chip:hover { border-color: var(--green); color: var(--green); }
+  .filter-chip.active {
+    background: var(--green);
+    border-color: var(--green);
+    color: var(--white);
+  }
+
+  .deals-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .deal-row {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .deal-row:hover {
+    border-color: var(--green);
+    box-shadow: 0 2px 12px rgba(22,163,74,0.1);
+  }
+
+  .deal-rank {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--gray-200);
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .deal-img {
+    width: 72px;
+    height: 72px;
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 36px;
+  }
+
+  .deal-info { flex: 1; min-width: 0; }
+  .deal-meta {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+  }
+  .deal-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .deal-sizes { font-size: 12px; color: var(--gray-400); }
+
+  .deal-pricing { text-align: right; flex-shrink: 0; }
+  .deal-disc {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .deal-sale { font-size: 16px; font-weight: 800; color: var(--gray-900); }
+  .deal-orig {
+    font-size: 12px;
+    color: var(--gray-400);
+    text-decoration: line-through;
+  }
+
+  /* ── SEARCH RESULTS PAGE ── */
+  .results-layout {
+    display: flex;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    align-items: flex-start;
+  }
+
+  .filters-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 20px;
+    position: sticky;
+    top: 80px;
+  }
+  .filter-group { margin-bottom: 24px; }
+  .filter-group:last-child { margin-bottom: 0; }
+  .filter-group-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .filter-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    outline: none;
+    background: var(--white);
+    cursor: pointer;
+  }
+  .filter-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--gray-700);
+    margin-bottom: 7px;
+    cursor: pointer;
+  }
+  .filter-check input { accent-color: var(--green); cursor: pointer; }
+
+  .size-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+  .size-btn {
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    background: var(--white);
+    color: var(--gray-700);
+    transition: all 0.1s;
+  }
+  .size-btn:hover { border-color: var(--green); }
+  .size-btn.selected {
+    background: var(--green-light);
+    border-color: var(--green);
+    color: var(--green-dark);
+  }
+
+  .results-main { flex: 1; min-width: 0; }
+  .results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .results-count { font-size: 14px; color: var(--gray-600); font-weight: 500; }
+  .results-count strong { color: var(--gray-900); }
+
+  /* ── PRODUCT DETAIL PAGE ── */
+  .detail-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+  .breadcrumb {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-bottom: 24px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .breadcrumb span { cursor: pointer; }
+  .breadcrumb span:hover { color: var(--green); }
+  .breadcrumb .sep { color: var(--gray-300); }
+
+  .detail-layout {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .detail-images { flex-shrink: 0; width: 300px; }
+  .main-img {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--gray-100);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    margin-bottom: 10px;
+    border: 1px solid var(--gray-200);
+  }
+  .thumb-row { display: flex; gap: 8px; }
+  .thumb {
+    width: 64px;
+    height: 64px;
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    cursor: pointer;
+  }
+  .thumb.active { border-color: var(--green); }
+
+  .detail-info { flex: 1; min-width: 280px; }
+  .detail-brand {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .detail-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .detail-range {
+    font-size: 14px;
+    color: var(--gray-600);
+    margin-bottom: 24px;
+  }
+  .detail-range strong { color: var(--gray-900); font-size: 16px; }
+
+  .stores-table-title {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-400);
+    margin-bottom: 12px;
+  }
+
+  .stores-table {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .store-row-detail {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--gray-100);
+    transition: background 0.1s;
+  }
+  .store-row-detail:last-child { border-bottom: none; }
+  .store-row-detail:hover { background: var(--gray-50); }
+
+  .store-logo-box {
+    width: 60px;
+    height: 36px;
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  .store-row-info { flex: 1; }
+  .store-row-name { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+  .store-row-sizes { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+  .store-row-pricing { text-align: right; flex-shrink: 0; }
+  .store-sale-price { font-size: 17px; font-weight: 800; color: var(--gray-900); }
+  .store-orig-price {
+    font-size: 12px;
+    color: var(--gray-400);
+    text-decoration: line-through;
+  }
+  .store-disc-pill {
+    display: inline-block;
+    background: var(--red-light);
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 99px;
+    margin-top: 3px;
+  }
+  .buy-btn {
+    padding: 9px 18px;
+    background: var(--green);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s;
+    text-decoration: none;
+  }
+  .buy-btn:hover { background: #15803d; }
+  .buy-btn.secondary {
+    background: var(--white);
+    color: var(--gray-600);
+    border: 1.5px solid var(--gray-200);
+  }
+
+  /* ── STORE GRID ON HOMEPAGE ── */
+  .store-logos {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 24px;
+    background: var(--white);
+    border-top: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .store-logo-item {
+    padding: 8px 20px;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-600);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--gray-900);
+    color: var(--gray-400);
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 60px;
+  }
+  footer .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  footer .footer-logo span { color: var(--green); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .nav-search { display: none; }
+    .results-layout { flex-direction: column; padding: 16px; }
+    .filters-sidebar { width: 100%; position: static; }
+    .detail-images { width: 100%; }
+    .deals-container { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" onclick="showPage('home')">kick<span>sale</span>.ph</a>
+  <div class="nav-search">
+    <input type="text" id="navSearch" placeholder="Search sneakers..." onkeydown="if(event.key==='Enter')doSearch(this.value)" />
+    <button onclick="doSearch(document.getElementById('navSearch').value)">Search</button>
+  </div>
+  <div class="nav-links">
+    <a onclick="showPage('deals')" id="nav-deals">Deals</a>
+    <a onclick="showPage('home')" id="nav-home">Brands</a>
+  </div>
+</nav>
+
+<!-- ══════════ HOME PAGE ══════════ -->
+<div id="page-home" class="page active">
+
+  <div class="hero">
+    <div class="hero-tag">🇵🇭 Philippines' #1 Sneaker Deal Finder</div>
+    <h1>Find The Biggest<br/><span>Sneaker Discounts</span><br/>In The PH</h1>
+    <p>Comparing Toby's, Sports Central, Zalora, Chris Sports & more — sorted by % discount</p>
+    <div class="hero-search">
+      <input type="text" id="heroSearch" placeholder="Search Nike, Adidas, Jordan, New Balance..." onkeydown="if(event.key==='Enter')doSearch(this.value)" />
+      <button onclick="doSearch(document.getElementById('heroSearch').value)">Search</button>
+    </div>
+    <div class="brand-pills">
+      <span class="brand-pill" onclick="doSearch('Nike')">Nike</span>
+      <span class="brand-pill" onclick="doSearch('Adidas')">Adidas</span>
+      <span class="brand-pill" onclick="doSearch('Jordan')">Jordan</span>
+      <span class="brand-pill" onclick="doSearch('New Balance')">New Balance</span>
+      <span class="brand-pill" onclick="doSearch('Puma')">Puma</span>
+      <span class="brand-pill" onclick="doSearch('Vans')">Vans</span>
+      <span class="brand-pill" onclick="doSearch('ASICS')">ASICS</span>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-dot"></div> <strong>312</strong> active deals right now</div>
+    <div class="stat">Updated <strong>2 hours ago</strong></div>
+    <div class="stat"><strong>13 stores</strong> tracked</div>
+    <div class="stat">Up to <strong>-60% off</strong> today</div>
+  </div>
+
+  <div class="store-logos">
+    <div class="store-logo-item">Zalora PH</div>
+    <div class="store-logo-item">Toby's Sports</div>
+    <div class="store-logo-item">Sports Central</div>
+    <div class="store-logo-item">Chris Sports</div>
+    <div class="store-logo-item">Planet Sports</div>
+    <div class="store-logo-item">Olympic Village</div>
+    <div class="store-logo-item">Sole Academy</div>
+    <div class="store-logo-item">Titan 22</div>
+    <div class="store-logo-item">The Playground</div>
+    <div class="store-logo-item">Urbanathletics</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">🔥 Today's Biggest Discounts</div>
+        <div class="section-subtitle">Sorted by % off — updated every 2 hours</div>
+      </div>
+      <a class="see-all" onclick="showPage('deals')">See all deals →</a>
+    </div>
+    <div class="product-grid" id="home-grid"></div>
+  </div>
+
+  <div class="section" style="padding-top:0;">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Nike Deals</div>
+        <div class="section-subtitle">Best discounts on Nike right now</div>
+      </div>
+      <a class="see-all" onclick="doSearch('Nike')">See all →</a>
+    </div>
+    <div class="product-grid" id="nike-grid"></div>
+  </div>
+
+  <div class="section" style="padding-top:0;">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Adidas Deals</div>
+        <div class="section-subtitle">Best discounts on Adidas right now</div>
+      </div>
+      <a class="see-all" onclick="doSearch('Adidas')">See all →</a>
+    </div>
+    <div class="product-grid" id="adidas-grid"></div>
+  </div>
+
+</div>
+
+<!-- ══════════ DEALS PAGE ══════════ -->
+<div id="page-deals" class="page">
+  <div class="deals-container">
+    <div class="deals-header">
+      <div class="deals-title">🔥 All Sneaker Deals</div>
+    </div>
+    <div class="deals-updated">
+      <div class="stat-dot"></div>
+      312 active discounts · Updated 2 hours ago
+    </div>
+    <div class="deals-filters">
+      <div class="filter-chip active" onclick="filterDeals('all',this)">All Stores</div>
+      <div class="filter-chip" onclick="filterDeals('Zalora',this)">Zalora</div>
+      <div class="filter-chip" onclick="filterDeals(&quot;Toby's Sports&quot;,this)">Toby's</div>
+      <div class="filter-chip" onclick="filterDeals('Sports Central',this)">Sports Central</div>
+      <div class="filter-chip" onclick="filterDeals('Chris Sports',this)">Chris Sports</div>
+      <div class="filter-chip" onclick="filterDeals('Olympic Village',this)">Olympic Village</div>
+      <div class="filter-chip" onclick="filterDeals('Sole Academy',this)">Sole Academy</div>
+      <div class="filter-chip" onclick="filterDeals('Titan 22',this)">Titan 22</div>
+    </div>
+    <div class="deals-list" id="deals-list"></div>
+  </div>
+</div>
+
+<!-- ══════════ SEARCH RESULTS PAGE ══════════ -->
+<div id="page-results" class="page">
+  <div class="results-layout">
+    <div class="filters-sidebar">
+      <div class="filter-group">
+        <div class="filter-group-title">Sort by</div>
+        <select id="sortBy" onchange="applyFilters()">
+          <option value="disc">Biggest discount %</option>
+          <option value="price_asc">Lowest price ₱</option>
+          <option value="price_desc">Highest price ₱</option>
+          <option value="savings">Most savings ₱</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-title">Size (US Men)</div>
+        <div class="size-grid" id="size-grid"></div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-title">Category</div>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-cat="Lifestyle" /> Lifestyle</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-cat="Running" /> Running</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-cat="Basketball" /> Basketball</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-cat="Training" /> Training</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-cat="Skate" /> Skate</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-cat="Boots" /> Boots</label>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-title">Store</div>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-store="Zalora" /> Zalora</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-store="Toby's Sports" /> Toby's Sports</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-store="Sports Central" /> Sports Central</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-store="Chris Sports" /> Chris Sports</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-store="Planet Sports" /> Planet Sports</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-store="Olympic Village" /> Olympic Village</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-store="Sole Academy" /> Sole Academy</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-store="Titan 22" /> Titan 22</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-store="The Playground" /> The Playground</label>
+        <label class="filter-check"><input type="checkbox" checked onchange="applyFilters()" data-store="Urbanathletics" /> Urbanathletics</label>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-title">Brand</div>
+        <div id="brand-filters"></div>
+      </div>
+    </div>
+    <div class="results-main">
+      <div class="results-bar">
+        <div class="results-count" id="results-count"></div>
+      </div>
+      <div class="product-grid" id="results-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PRODUCT DETAIL PAGE ══════════ -->
+<div id="page-detail" class="page">
+  <div class="detail-container">
+    <div class="breadcrumb" id="detail-breadcrumb"></div>
+    <div class="detail-layout">
+      <div class="detail-images">
+        <div class="main-img" id="detail-main-img">👟</div>
+        <div class="thumb-row">
+          <div class="thumb active">👟</div>
+          <div class="thumb">👟</div>
+          <div class="thumb">👟</div>
+        </div>
+      </div>
+      <div class="detail-info">
+        <div class="detail-brand" id="detail-brand"></div>
+        <div class="detail-name" id="detail-name"></div>
+        <div class="detail-range" id="detail-range"></div>
+        <div class="stores-table-title">Available at these stores — sorted by biggest discount</div>
+        <div class="stores-table" id="stores-table"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">kick<span>sale</span>.ph</div>
+  <p>Philippines' sneaker deal finder. We compare prices so you don't have to.</p>
+  <p style="margin-top:8px;">© 2025 KickSale.ph — Not affiliated with any store. Prices updated regularly.</p>
+</footer>
+
+<script>
+// ══════════════════════════════════════════
+// SAMPLE DATA — Replace with Supabase later
+// ══════════════════════════════════════════
+// category options: Lifestyle, Running, Basketball, Training, Skate, Boots
+const PRODUCTS = [
+  // ── LIFESTYLE ──
+  { id:1,  brand:'Nike',          name:'Air Max 270 React',          store:'Zalora',                sale:2699,  orig:5995,  sizes:[7,8,8.5,9,10],       cat:'Lifestyle',   emoji:'👟' },
+  { id:2,  brand:'Adidas',        name:'Stan Smith',                 store:"Toby's Sports",         sale:2097,  orig:3995,  sizes:[6,7,8,9],             cat:'Lifestyle',   emoji:'👟' },
+  { id:3,  brand:'Nike',          name:'Air Force 1 \'07',           store:'Sports Central',        sale:2997,  orig:4995,  sizes:[7,8,9,10,11],         cat:'Lifestyle',   emoji:'👟' },
+  { id:4,  brand:'Jordan',        name:'Air Jordan 1 Low',           store:'Zalora',                sale:4547,  orig:6995,  sizes:[7.5,8,8.5],           cat:'Lifestyle',   emoji:'👟' },
+  { id:5,  brand:'Vans',          name:'Old Skool Classic',          store:'Zalora',                sale:1997,  orig:3295,  sizes:[6,7,8,9,10],          cat:'Skate',       emoji:'👟' },
+  { id:6,  brand:'Converse',      name:'Chuck Taylor All Star Hi',   store:'Urbanathletics',        sale:1797,  orig:2995,  sizes:[6,7,8,9,10],          cat:'Lifestyle',   emoji:'👟' },
+  { id:7,  brand:'Adidas',        name:'NMD R1',                     store:'Zalora',                sale:3597,  orig:5995,  sizes:[8,9,10],              cat:'Lifestyle',   emoji:'👟' },
+  { id:8,  brand:'Nike',          name:'Air Max 90',                 store:"Toby's Sports",         sale:3296,  orig:5495,  sizes:[7,8,9,10,11],         cat:'Lifestyle',   emoji:'👟' },
+  { id:9,  brand:'Puma',          name:'Suede Classic XXI',          store:'Sports Central',        sale:1697,  orig:2995,  sizes:[6,7,8,9,10],          cat:'Lifestyle',   emoji:'👟' },
+  { id:10, brand:'Adidas',        name:'Forum Low',                  store:'Chris Sports',          sale:2397,  orig:3995,  sizes:[7,8,9],               cat:'Lifestyle',   emoji:'👟' },
+  { id:11, brand:'Jordan',        name:'Air Jordan 4 Retro',         store:'Zalora',                sale:7497,  orig:11995, sizes:[8,9,10],              cat:'Lifestyle',   emoji:'👟' },
+  { id:12, brand:'New Balance',   name:'574 Core',                   store:'Sports Central',        sale:2597,  orig:4495,  sizes:[8,9,10,11],           cat:'Lifestyle',   emoji:'👟' },
+  { id:13, brand:'Onitsuka Tiger',name:'Mexico 66',                  store:'Zalora',                sale:3597,  orig:5495,  sizes:[7,8,9,10],            cat:'Lifestyle',   emoji:'👟' },
+  { id:14, brand:'Fila',          name:'Disruptor II Premium',       store:'Olympic Village',       sale:1397,  orig:2795,  sizes:[6,7,8,9,10],          cat:'Lifestyle',   emoji:'👟' },
+  { id:15, brand:'World Balance', name:'TechLite X',                 store:'Chris Sports',          sale:997,   orig:1995,  sizes:[7,8,9,10,11],         cat:'Lifestyle',   emoji:'👟' },
+  { id:16, brand:'Skechers',      name:'D\'Lites 2.0',               store:'The Playground',        sale:1997,  orig:3595,  sizes:[6,7,8,9,10,11],       cat:'Lifestyle',   emoji:'👟' },
+  { id:17, brand:'Vans',          name:'Authentic Classic',          store:'Sole Academy',          sale:1697,  orig:2595,  sizes:[6,7,8,9,10],          cat:'Skate',       emoji:'👟' },
+  { id:18, brand:'Nike',          name:'Court Vision Low',           store:'Chris Sports',          sale:2096,  orig:2995,  sizes:[7,8,9,10],            cat:'Lifestyle',   emoji:'👟' },
+  { id:19, brand:'Adidas',        name:'Gazelle Bold',               store:'Sole Academy',          sale:3197,  orig:4995,  sizes:[7,8,9],               cat:'Lifestyle',   emoji:'👟' },
+  { id:20, brand:'World Balance', name:'Vybe V2',                    store:'Sports Central',        sale:797,   orig:1595,  sizes:[7,8,9,10,11],         cat:'Lifestyle',   emoji:'👟' },
+  // ── OFFICIAL BRAND STORES ──
+  // ── FOOT LOCKER PH ──
+  // ── RUNNING ──
+  { id:21, brand:'Nike',          name:'Revolution 6',               store:"Toby's Sports",         sale:1797,  orig:3495,  sizes:[7,8,9,10],            cat:'Running',     emoji:'👟' },
+  { id:22, brand:'ASICS',         name:'Gel-Nimbus 25',              store:'Planet Sports',         sale:4497,  orig:7995,  sizes:[8,9,10,11],           cat:'Running',     emoji:'👟' },
+  { id:23, brand:'ASICS',         name:'Gel-Kayano 29',              store:"Toby's Sports",         sale:4197,  orig:6995,  sizes:[8,9,10,11],           cat:'Running',     emoji:'👟' },
+  { id:24, brand:'New Balance',   name:'Fresh Foam X 1080v13',       store:'Planet Sports',         sale:5997,  orig:9995,  sizes:[8,9,10,11],           cat:'Running',     emoji:'👟' },
+  { id:25, brand:'Adidas',        name:'Ultraboost 22',              store:"Toby's Sports",         sale:3497,  orig:6995,  sizes:[8,9,10],              cat:'Running',     emoji:'👟' },
+  { id:26, brand:'Puma',          name:'Velocity Nitro 2',           store:'Chris Sports',          sale:2697,  orig:4495,  sizes:[7,8,9,10],            cat:'Running',     emoji:'👟' },
+  { id:27, brand:'Nike',          name:'Downshifter 12',             store:'Sports Central',        sale:2096,  orig:2995,  sizes:[7,8,9],               cat:'Running',     emoji:'👟' },
+  { id:28, brand:'Saucony',       name:'Ride 16',                    store:'Olympic Village',       sale:3997,  orig:6495,  sizes:[8,9,10],              cat:'Running',     emoji:'👟' },
+  { id:29, brand:'World Balance', name:'Flash Run 2.0',              store:'Chris Sports',          sale:1197,  orig:1995,  sizes:[7,8,9,10,11],         cat:'Running',     emoji:'👟' },
+  { id:30, brand:'Under Armour',  name:'HOVR Sonic 6',               store:'Zalora',                sale:2997,  orig:4995,  sizes:[8,9,10,11],           cat:'Running',     emoji:'👟' },
+  { id:31, brand:'Reebok',        name:'Floatride Energy 5',         store:'Zalora',                sale:2497,  orig:4495,  sizes:[7,8,9,10],            cat:'Running',     emoji:'👟' },
+  // ── BASKETBALL ──
+  { id:32, brand:'Nike',          name:'LeBron XXI',                 store:'Titan 22',              sale:5997,  orig:9995,  sizes:[8,9,10,11],           cat:'Basketball',  emoji:'👟' },
+  { id:33, brand:'Jordan',        name:'Air Jordan 38',              store:'Titan 22',              sale:5497,  orig:8995,  sizes:[8,9,10],              cat:'Basketball',  emoji:'👟' },
+  { id:34, brand:'Adidas',        name:'D.O.N. Issue 5',             store:'Sports Central',        sale:3497,  orig:5995,  sizes:[8,9,10,11],           cat:'Basketball',  emoji:'👟' },
+  { id:35, brand:'Nike',          name:'Cosmic Unity 3',             store:"Toby's Sports",         sale:2997,  orig:4995,  sizes:[8,9,10],              cat:'Basketball',  emoji:'👟' },
+  { id:36, brand:'Under Armour',  name:'Curry 11',                   store:'Olympic Village',       sale:4497,  orig:7495,  sizes:[8,9,10,11],           cat:'Basketball',  emoji:'👟' },
+  { id:37, brand:'World Balance', name:'WB Basketball Pro',          store:'Chris Sports',          sale:1297,  orig:2595,  sizes:[8,9,10,11],           cat:'Basketball',  emoji:'👟' },
+  // ── TRAINING ──
+  { id:38, brand:'Nike',          name:'Free Metcon 5',              store:'Zalora',                sale:3697,  orig:5995,  sizes:[8,9,10],              cat:'Training',    emoji:'👟' },
+  { id:39, brand:'Adidas',        name:'Dropset 2 Trainer',          store:"Toby's Sports",         sale:2997,  orig:4995,  sizes:[7,8,9,10],            cat:'Training',    emoji:'👟' },
+  { id:40, brand:'Puma',          name:'Fuse 2.0',                   store:'Chris Sports',          sale:2097,  orig:3495,  sizes:[7,8,9,10,11],         cat:'Training',    emoji:'👟' },
+  { id:41, brand:'Under Armour',  name:'TriBase Reign 5',            store:'Olympic Village',       sale:2497,  orig:4295,  sizes:[8,9,10,11],           cat:'Training',    emoji:'👟' },
+  { id:42, brand:'Reebok',        name:'Nano X3',                    store:'Urbanathletics',        sale:3297,  orig:5495,  sizes:[7,8,9,10],            cat:'Training',    emoji:'👟' },
+  { id:43, brand:'New Balance',   name:'Minimus TR v2',              store:'Planet Sports',         sale:2797,  orig:4295,  sizes:[8,9,10],              cat:'Training',    emoji:'👟' },
+  // ── BOOTS (Dr. Martens + others) ──
+  { id:44, brand:'Dr. Martens',   name:'1460 Pascal Leather Boot',   store:'Zalora',                sale:6997,  orig:10995, sizes:[6,7,8,9,10],          cat:'Boots',       emoji:'🥾' },
+  { id:45, brand:'Dr. Martens',   name:'1461 Oxford 3-Eye Shoe',     store:'Zalora',                sale:5497,  orig:8495,  sizes:[6,7,8,9,10,11],       cat:'Boots',       emoji:'🥾' },
+  { id:46, brand:'Dr. Martens',   name:'Jadon Platform Boot',        store:'Zalora',                sale:8997,  orig:13995, sizes:[6,7,8,9],             cat:'Boots',       emoji:'🥾' },
+  { id:47, brand:'Dr. Martens',   name:'1460 Vegan Boot',            store:'Zalora',                sale:6497,  orig:9995,  sizes:[7,8,9,10],            cat:'Boots',       emoji:'🥾' },
+  { id:48, brand:'Dr. Martens',   name:'Combs Tech Utility Boot',    store:'Zalora',                sale:5997,  orig:9495,  sizes:[7,8,9,10],            cat:'Boots',       emoji:'🥾' },
+];
+
+// Add discount % to each product
+PRODUCTS.forEach(p => {
+  p.disc = Math.round(((p.orig - p.sale) / p.orig) * 100);
+  p.savings = p.orig - p.sale;
+});
+
+// Sort all products by discount descending
+const byDiscount = [...PRODUCTS].sort((a,b) => b.disc - a.disc);
+
+// ══════════════════
+// STATE
+// ══════════════════
+let currentSearch = '';
+let selectedSizes = [];
+let currentResults = [];
+
+// ══════════════════
+// NAV
+// ══════════════════
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ══════════════════
+// CARD BUILDER
+// ══════════════════
+function buildCard(p) {
+  return `
+    <div class="product-card" onclick="showDetail(${p.id})">
+      <div class="card-img">
+        <div class="placeholder">${p.emoji}</div>
+        <div class="disc-badge">-${p.disc}%</div>
+        <div class="store-badge">${p.store}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">${p.brand}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-prices">
+          <span class="card-sale">₱${p.sale.toLocaleString()}</span>
+          <span class="card-orig">₱${p.orig.toLocaleString()}</span>
+        </div>
+        <div class="card-sizes">Sizes: ${p.sizes.join(', ')} · <span style="color:var(--green);font-weight:600;">${p.cat}</span></div>
+      </div>
+    </div>`;
+}
+
+// ══════════════════
+// HOME PAGE
+// ══════════════════
+function renderHome() {
+  document.getElementById('home-grid').innerHTML =
+    byDiscount.slice(0,8).map(buildCard).join('');
+  document.getElementById('nike-grid').innerHTML =
+    byDiscount.filter(p=>p.brand==='Nike').slice(0,4).map(buildCard).join('');
+  document.getElementById('adidas-grid').innerHTML =
+    byDiscount.filter(p=>p.brand==='Adidas').slice(0,4).map(buildCard).join('');
+}
+
+// ══════════════════
+// DEALS PAGE
+// ══════════════════
+function renderDeals(storeFilter) {
+  let data = byDiscount;
+  if (storeFilter && storeFilter !== 'all') {
+    data = data.filter(p => p.store === storeFilter);
+  }
+  document.getElementById('deals-list').innerHTML = data.map((p,i) => `
+    <div class="deal-row" onclick="showDetail(${p.id})">
+      <div class="deal-rank">${i+1}</div>
+      <div class="deal-img">${p.emoji}</div>
+      <div class="deal-info">
+        <div class="deal-meta">${p.brand} · ${p.store}</div>
+        <div class="deal-name">${p.name}</div>
+        <div class="deal-sizes">Sizes: ${p.sizes.join(', ')}</div>
+      </div>
+      <div class="deal-pricing">
+        <div class="deal-disc">-${p.disc}%</div>
+        <div class="deal-sale">₱${p.sale.toLocaleString()}</div>
+        <div class="deal-orig">₱${p.orig.toLocaleString()}</div>
+      </div>
+    </div>`).join('');
+}
+
+function filterDeals(store, el) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderDeals(store);
+}
+
+// ══════════════════
+// SEARCH
+// ══════════════════
+const SIZES = [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 12];
+
+function doSearch(query) {
+  currentSearch = query.trim();
+  document.getElementById('navSearch').value = currentSearch;
+  selectedSizes = [];
+
+  // Build size grid
+  document.getElementById('size-grid').innerHTML = SIZES.map(s => `
+    <div class="size-btn" onclick="toggleSize(${s},this)">${s}</div>`).join('');
+
+  // Build brand filters
+  const brands = [...new Set(PRODUCTS.map(p=>p.brand))].sort();
+  document.getElementById('brand-filters').innerHTML = brands.map(b => `
+    <label class="filter-check">
+      <input type="checkbox" checked onchange="applyFilters()" data-brand="${b}" /> ${b}
+    </label>`).join('');
+
+  applyFilters();
+  showPage('results');
+}
+
+function toggleSize(size, el) {
+  if (selectedSizes.includes(size)) {
+    selectedSizes = selectedSizes.filter(s => s !== size);
+    el.classList.remove('selected');
+  } else {
+    selectedSizes.push(size);
+    el.classList.add('selected');
+  }
+  applyFilters();
+}
+
+function applyFilters() {
+  const sort = document.getElementById('sortBy').value;
+  const checkedStores = [...document.querySelectorAll('[data-store]:checked')].map(el => el.dataset.store);
+  const checkedBrands = [...document.querySelectorAll('[data-brand]:checked')].map(el => el.dataset.brand);
+  const checkedCats = [...document.querySelectorAll('[data-cat]:checked')].map(el => el.dataset.cat);
+
+  let results = PRODUCTS.filter(p => {
+    const q = currentSearch.toLowerCase();
+    const matchSearch = !q || p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q);
+    const matchStore = checkedStores.includes(p.store);
+    const matchBrand = checkedBrands.includes(p.brand);
+    const matchCat = checkedCats.includes(p.cat);
+    const matchSize = selectedSizes.length === 0 || selectedSizes.some(s => p.sizes.includes(s));
+    return matchSearch && matchStore && matchBrand && matchCat && matchSize;
+  });
+
+  if (sort === 'disc') results.sort((a,b) => b.disc - a.disc);
+  else if (sort === 'price_asc') results.sort((a,b) => a.sale - b.sale);
+  else if (sort === 'price_desc') results.sort((a,b) => b.sale - a.sale);
+  else if (sort === 'savings') results.sort((a,b) => b.savings - a.savings);
+
+  currentResults = results;
+  const sizeNote = selectedSizes.length ? ` · Sizes: ${selectedSizes.join(', ')}` : '';
+  document.getElementById('results-count').innerHTML =
+    `<strong>${results.length}</strong> sneakers found for "<strong>${currentSearch}</strong>"${sizeNote}`;
+  document.getElementById('results-grid').innerHTML =
+    results.length ? results.map(buildCard).join('') :
+    '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#9ca3af;">No sneakers found. Try a different search or remove filters.</div>';
+}
+
+// ══════════════════
+// PRODUCT DETAIL
+// ══════════════════
+function showDetail(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+
+  // Find all stores selling this shoe (simulated — same brand+name)
+  const storeData = [
+    { store: p.store, sale: p.sale, orig: p.orig, disc: p.disc, sizes: p.sizes },
+    { store: p.store === 'Zalora' ? "Toby's" : 'Zalora', sale: Math.round(p.sale * 1.08), orig: p.orig, disc: Math.round(((p.orig - Math.round(p.sale*1.08))/p.orig)*100), sizes: p.sizes.slice(0,3) },
+    { store: 'Sports Central', sale: p.orig, orig: p.orig, disc: 0, sizes: p.sizes.slice(1) },
+  ].sort((a,b) => b.disc - a.disc);
+
+  const minPrice = Math.min(...storeData.map(s=>s.sale));
+  const maxDisc = Math.max(...storeData.map(s=>s.disc));
+
+  document.getElementById('detail-breadcrumb').innerHTML =
+    `<span onclick="showPage('home')">Home</span><span class="sep">›</span>
+     <span onclick="doSearch('${p.brand}')">${p.brand}</span><span class="sep">›</span>
+     <span>${p.name}</span>`;
+  document.getElementById('detail-brand').textContent = p.brand;
+  document.getElementById('detail-name').textContent = p.name;
+  document.getElementById('detail-range').innerHTML =
+    `Best price: <strong>₱${minPrice.toLocaleString()}</strong> · Up to <strong style="color:var(--red)">-${maxDisc}% off</strong>`;
+  document.getElementById('detail-main-img').textContent = p.emoji;
+
+  document.getElementById('stores-table').innerHTML = storeData.map(s => `
+    <div class="store-row-detail">
+      <div class="store-logo-box">${s.store.split(' ')[0]}</div>
+      <div class="store-row-info">
+        <div class="store-row-name">${s.store}</div>
+        <div class="store-row-sizes">Sizes: ${s.sizes.join(', ')}</div>
+      </div>
+      <div class="store-row-pricing">
+        <div class="store-sale-price">₱${s.sale.toLocaleString()}</div>
+        ${s.disc > 0 ? `<div class="store-orig-price">₱${s.orig.toLocaleString()}</div>
+        <div class="store-disc-pill">-${s.disc}%</div>` : `<div style="font-size:12px;color:var(--gray-400)">no sale</div>`}
+      </div>
+      ${s.disc > 0
+        ? `<a class="buy-btn" href="#" onclick="alert('This will link to ${s.store} when live!')">Buy →</a>`
+        : `<a class="buy-btn secondary" href="#">View</a>`}
+    </div>`).join('');
+
+  showPage('detail');
+}
+
+// ══════════════════
+// INIT
+// ══════════════════
+renderHome();
+renderDeals();
+</script>
+</body>
+</html>
